@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import static com.accenture.codingtest.springbootcodingtest.model.Status.NOT_STARTED;
+
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -34,6 +36,7 @@ public class TaskService {
 
     public TaskDto create(TaskDto taskDto) {
         Task entity = modelMapper.map(taskDto, Task.class);
+        entity.setStatus(NOT_STARTED.name());
         Task createdEntity = taskRepository.save(entity);
         return modelMapper.map(createdEntity, TaskDto.class);
     }

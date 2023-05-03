@@ -4,6 +4,8 @@ import com.accenture.codingtest.springbootcodingtest.model.UserDto;
 import com.accenture.codingtest.springbootcodingtest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+@Secured("ROLE_ADMIN")
 public class UserController {
     private final UserService userService;
 

@@ -4,6 +4,8 @@ import com.accenture.codingtest.springbootcodingtest.model.ProjectDto;
 import com.accenture.codingtest.springbootcodingtest.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -26,6 +28,7 @@ public class ProjectController {
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasAuthority('ROLE_PRODUCT_OWNER')")
     public ProjectDto create(@RequestBody ProjectDto projectDto) {
         return projectService.create(projectDto);
     }

@@ -4,6 +4,7 @@ import com.accenture.codingtest.springbootcodingtest.model.TaskDto;
 import com.accenture.codingtest.springbootcodingtest.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class TaskController {
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasAuthority('ROLE_PRODUCT_OWNER')")
     public TaskDto create(@RequestBody TaskDto taskDto) {
         return taskService.create(taskDto);
     }
@@ -36,6 +38,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_PRODUCT_OWNER')")
     public TaskDto updatePartially(@PathVariable("id") String id, @RequestBody TaskDto taskDto) {
         return taskService.updatePartially(UUID.fromString(id), taskDto);
     }
